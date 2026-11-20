@@ -82,7 +82,7 @@ nav a:hover {
     min-height: 500px;
     background:
         linear-gradient(rgba(56, 19, 29, 0.40), rgba(56, 19, 29, 0.45)),
-        url("../imagens/castelo.jpg");
+        url("castelo.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -200,43 +200,43 @@ section > p {
 .ala-arquivos {
     background-image: 
         linear-gradient(rgba(56, 19, 29, 0.65), rgba(56, 19, 29, 0.72)),
-        url("../imagens/arquivos.jpg");
+        url("arquivos.jpg");
 }
 
 .ala-capital {
     background-image: 
         linear-gradient(rgba(56, 19, 29, 0.65), rgba(56, 19, 29, 0.72)),
-        url("../imagens/capital.jpg");
+        url("capital.jpg");
 }
 
 .ala-cinzas {
     background-image: 
         linear-gradient(rgba(56, 19, 29, 0.65), rgba(56, 19, 29, 0.72)),
-        url("../imagens/cinzas.jpg");
+        url("cinzas.jpg");
 }
 
 .ala-dragoes {
     background-image: 
         linear-gradient(rgba(56, 19, 29, 0.65), rgba(56, 19, 29, 0.72)),
-        url("../imagens/dragoes.jpg");
+        url("dragoes.jpg");
 }
 
 .ala-fadas {
     background-image: 
         linear-gradient(rgba(56, 19, 29, 0.65), rgba(56, 19, 29, 0.72)),
-        url("../imagens/fadas.jpg");
+        url("fadas.jpg");
 }
 
 .ala-janela {
     background-image: 
         linear-gradient(rgba(56, 19, 29, 0.65), rgba(56, 19, 29, 0.72)),
-        url("../imagens/janela.jpg");
+        url("janela.jpg");
 }
 
 .ala-vilao {
     background-image: 
         linear-gradient(rgba(56, 19, 29, 0.65), rgba(56, 19, 29, 0.72)),
-        url("../imagens/vilao.jpg");
+        url("vilao.jpg");
 }
 
 .ala:hover {
@@ -641,25 +641,25 @@ footer p:first-child {
 
 /* FUNDOS TEMÁTICOS DOS MODAIS POR SAGA */
 #modal-saga-dragoes .modal-pergaminho {
-    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("../imagens/dragoes.jpg");
+    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("dragoes.jpg");
 }
 #modal-saga-cinzas .modal-pergaminho {
-    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("../imagens/cinzas.jpg");
+    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("cinzas.jpg");
 }
 #modal-saga-capital .modal-pergaminho {
-    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("../imagens/capital.jpg");
+    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("capital.jpg");
 }
 #modal-saga-fadas .modal-pergaminho {
-    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("../imagens/fadas.jpg");
+    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("fadas.jpg");
 }
 #modal-saga-arquivos .modal-pergaminho {
-    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("../imagens/arquivos.jpg");
+    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("arquivos.jpg");
 }
 #modal-saga-janela .modal-pergaminho {
-    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("../imagens/janela.jpg");
+    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("janela.jpg");
 }
 #modal-saga-vilao .modal-pergaminho {
-    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("../imagens/vilao.jpg");
+    background-image: linear-gradient(rgba(56, 19, 29, 0.88), rgba(56, 19, 29, 0.94)), url("vilao.jpg");
 }
 
 
