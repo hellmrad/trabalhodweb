@@ -9,7 +9,7 @@ const livros = [
         autor: "Rebecca Yarros",
         preco: 59.90,
         categoria: "dragoes",
-        imagem: "imagens/livros/quartaasa.jpg",
+        imagem: "quartaasa.jpg",
         link: "https://www.amazon.com.br/s?k=Quarta+Asa+Rebecca+Yarros"
     },
     {
@@ -18,7 +18,7 @@ const livros = [
         autor: "Rebecca Yarros",
         preco: 64.90,
         categoria: "dragoes",
-        imagem: "./imagens/livros/chamadeferro.jpg",
+        imagem: "chamadeferro.jpg",
         link: "https://www.amazon.com.br/s?k=Chama+de+Ferro+Rebecca+Yarros"
     },
     {
@@ -27,7 +27,7 @@ const livros = [
         autor: "Rebecca Yarros",
         preco: 69.90,
         categoria: "dragoes",
-        imagem: "./imagens/livros/tempestadeonix.jpg",
+        imagem: "tempestadeonix.jpg",
         link: "https://www.amazon.com.br/s?k=Tempestade+de+Onix+Rebecca+Yarros"
     },
     {
@@ -36,7 +36,7 @@ const livros = [
         autor: "Holly Black",
         preco: 49.90,
         categoria: "fadas",
-        imagem: "./imagens/livros/oprincipecruel.jpg",
+        imagem: "oprincipecruel.jpg",
         link: "https://www.amazon.com.br/s?k=O+Principe+Cruel+Holly+Black"
     },
     {
@@ -45,7 +45,7 @@ const livros = [
         autor: "Sarah J. Maas",
         preco: 54.90,
         categoria: "arquivos",
-        imagem: "./imagens/livros/tronodevidro.jpg",
+        imagem: "tronodevidro.jpg",
         link: "https://www.amazon.com.br/s?k=Trono+de+Vidro+Sarah+J+Maas"
     },
     {
@@ -54,7 +54,7 @@ const livros = [
         autor: "Rachel Gillig",
         preco: 54.90,
         categoria: "janela",
-        imagem: "./imagens/livros/umajanelasombria.jpg",
+        imagem: "umajanelasombria.jpg",
         link: "https://www.amazon.com.br/s?k=Uma+Janela+Sombria+Rachel+Gillig"
     }
 ];
