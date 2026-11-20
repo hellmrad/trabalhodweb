@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Biblioteca da Rainha Perdida</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Vídeo fixo no fundo do site inteiro -->
+    <video autoplay muted loop playsinline class="video-fundo-site">
+        <source src="imagens/fundo.mp4" type="video/mp4">
+    </video>
+    <div class="overlay-fundo-site"></div>
+
+    <!-- CABEÇALHO -->
+    <header>
+      <div class="cabecalho">
+        <img src="imagens/brasao.jpg" alt="Brasão da Biblioteca da Rainha Perdida">
+        <div class="logo">
+            <h1>A Biblioteca da Rainha Perdida</h1>
+            <p>Procura-se bibliotecária para antigos reinos. Venha se perder nas histórias coletadas pela Rainha Perdida.</p>
+        </div>
+      </div>
+      <nav>
+          <a href="#inicio">Início</a>
+          <a href="#destaques">Destaques</a>
+          <a href="#alas">Alas</a>
+          <a href="#sobre">Nossa história</a>
+          <a href="#contato">Contato</a>
+      </nav>
+    </header>
+
+    <main>
+        <!-- INÍCIO -->
+        <section id="inicio" class="banner">
+            <h2>Entre, viajante...</h2>
+            <p>
+                Atrás destes portais, existem reinos,
+                criaturas mágicas e histórias que
+                aguardam para serem descobertas.
+            </p>
+            <a href="#alas" class="botao">
+                Explorar a Biblioteca
+            </a>
+        </section>
+
+        <!-- DESTAQUES -->
+        <section id="destaques">
+            <h2>Escolhas da Rainha</h2>
+            <p>Histórias especiais selecionadas para você.</p>
+            <div id="livros-destaque" class="livros-container">
+                <!-- Livros inseridos via JavaScript -->
+            </div>
+        </section>
+
+        <!-- CATEGORIAS (ALAS) -->
+        <section id="alas">
+            <h2>Explore as Alas da Biblioteca</h2>
+            <p>
+                Cada portal guarda um universo diferente.
+                Qual deles você deseja se aventurar?
+            </p>
+
+            <div class="alas-container">
+
+                <!-- 1. A ALA DOS DRAGÕES -->
+                <article class="ala ala-dragoes" data-musica="audio/dragoes.mp3">
+                    <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-dragoes')">
+                        <span class="icone-saga">🐉</span>
+                        <div>
+                            <h3>A Ala dos Dragões</h3>
+                            <p>O Empyriano — Clique para ler o pergaminho da saga</p>
+                        </div>
+                        <span class="seta">⌄</span>
+                    </button>
+                    <div class="ala-livros">
+                        <ul>
+                            <li>Quarta Asa</li>
+                            <li>Chama de Ferro</li>
+                            <li>Tempestade de Ônix</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 2. O REINO DAS CINZAS -->
+                <article class="ala ala-cinzas" data-musica="audio/cinzas.mp3">
+                    <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-cinzas')">
+                        <span class="icone-saga">⚔️</span>
+                        <div>
+                            <h3>O Reino das Cinzas</h3>
+                            <p>De Sangue e Cinzas — Clique para ler o pergaminho da saga</p>
+                        </div>
+                        <span class="seta">⌄</span>
+                    </button>
+                    <div class="ala-livros">
+                        <ul>
+                            <li>De Sangue e Cinzas</li>
+                            <li>Um Reino de Carne e Fogo</li>
+                            <li>A Coroa de Ossos Dourados</li>
+                            <li>A Guerra das Duas Rainhas</li>
+                            <li>Uma Alma de Cinzas e Sangue</li>
+                            <li>O Primal de Sangue e Osso</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 3. OS JOGOS DA CAPITAL -->
+                <article class="ala ala-capital" data-musica="audio/capital.mp3">
+                    <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-capital')">
+                        <span class="icone-saga">🏹</span>
+                        <div>
+                            <h3>Os Jogos da Capital</h3>
+                            <p>Jogos Vorazes — Clique para ler o pergaminho da saga</p>
+                        </div>
+                        <span class="seta">⌄</span>
+                    </button>
+                    <div class="ala-livros">
+                        <ul>
+                            <li>Jogos Vorazes</li>
+                            <li>Em Chamas</li>
+                            <li>A Esperança</li>
+                            <li>A Cantiga dos Pássaros e das Serpentes</li>
+                            <li>Amanhecer na Colheita</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 4. A CORTE DAS FADAS -->
+                <article class="ala ala-fadas" data-musica="audio/fadas.mp3">
+                    <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-fadas')">
+                        <span class="icone-saga">👑</span>
+                        <div>
+                            <h3>A Corte das Fadas</h3>
+                            <p>O Povo do Ar — Clique para ler o pergaminho da saga</p>
+                        </div>
+                        <span class="seta">⌄</span>
+                    </button>
+                    <div class="ala-livros">
+                        <ul>
+                            <li>O Príncipe Cruel</li>
+                            <li>O Rei Perverso</li>
+                            <li>A Rainha do Nada</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 5. OS ARQUIVOS PRESERVADOS -->
+                <article class="ala ala-arquivos" data-musica="audio/arquivos.mp3">
+                    <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-arquivos')">
+                        <span class="icone-saga">🗡️</span>
+                        <div>
+                            <h3>Os Arquivos Preservados</h3>
+                            <p>Trono de Vidro — Clique para ler o pergaminho da saga</p>
+                        </div>
+                        <span class="seta">⌄</span>
+                    </button>
+                    <div class="ala-livros">
+                        <ul>
+                            <li>Trono de Vidro</li>
+                            <li>Coroa da Meia-Noite</li>
+                            <li>Herdeira do Fogo</li>
+                            <li>Rainha das Sombras</li>
+                            <li>Império de Tempestades</li>
+                            <li>Torre do Alvorecer</li>
+                            <li>Reino de Cinzas</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 6. O JOGO DE CARTAS -->
+                <article class="ala ala-janela" data-musica="audio/janela.mp3">
+                    <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-janela')">
+                        <span class="icone-saga">🃏</span>
+                        <div>
+                            <h3>O Jogo de Cartas</h3>
+                            <p>Uma Janela Sombria — Clique para ler o pergaminho da saga</p>
+                        </div>
+                        <span class="seta">⌄</span>
+                    </button>
+                    <div class="ala-livros">
+                        <ul>
+                            <li>Uma Janela Sombria</li>
+                            <li>Dois Tronos Retorcidos</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 7. O ESCRITÓRIO DO VILÃO -->
+                <article class="ala ala-vilao" data-musica="audio/vilao.mp3">
+                    <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-vilao')">
+                        <span class="icone-saga">☕</span>
+                        <div>
+                            <h3>O Escritório do Vilão</h3>
+                            <p>Assistente do Vilão — Clique para ler o pergaminho da saga</p>
+                        </div>
+                        <span class="seta">⌄</span>
+                    </button>
+                    <div class="ala-livros">
+                        <ul>
+                            <li>Assistente do Vilão</li>
+                            <li>Aprendiz do Vilão</li>
+                            <li>Cúmplice do Vilão</li>
+                            <li>Adversário do Vilão</li>
+                        </ul>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- OS PERGAMINHOS (MODAIS DAS 7 SAGAS)        -->
+        <!-- ========================================== -->
+
+        <div id="modal-saga-dragoes" class="modal-overlay">
+            <div class="modal-pergaminho">
+                <button class="modal-fechar" onclick="fecharModal('modal-saga-dragoes')">&times;</button>
+                <h2>🐉 O Empyriano — A Saga dos Dragões</h2>
+                <p>Nas colinas sagradas de Navarre, cadetes competem mortalmente para se tornarem cavaleiros de dragões. Violet Sorrengail, uma jovem moldada para os arquivos, é lançada no violento Quadrat de Batalha onde cada escolha pode significar a morte ou a glória ao lado de feras indomáveis.</p>
+                <p><em>"Seja implacável, pois os céus não perdoam os fracos."</em></p>
+            </div>
+        </div>
+
+        <div id="modal-saga-cinzas" class="modal-overlay">
+            <div class="modal-pergaminho">
+                <button class="modal-fechar" onclick="fecharModal('modal-saga-cinzas')">&times;</button>
+                <h2>⚔️ De Sangue e Cinzas — O Reino das Cinzas</h2>
+                <p>Uma jornada épica de deuses, mortais, reinos ocultos e uma paixão proibida que tem o poder de reescrever o destino do mundo. Poppy carrega o fardo de ser a Donzela, mas segredos ancestrais e um guarda de olhos dourados ameaçam destruir as mentiras de sua coroa.</p>
+            </div>
+        </div>
+
+        <div id="modal-saga-capital" class="modal-overlay">
+            <div class="modal-pergaminho">
+                <button class="modal-fechar" onclick="fecharModal('modal-saga-capital')">&times;</button>
+                <h2>🏹 Jogos Vorazes — Os Jogos da Capital</h2>
+                <p>Nas ruínas de Panem, a sobrevivência é um espetáculo televisivo mortal imposto pela Capital. Katniss Everdeen voluntaria-se no lugar da irmã e acaba acendendo a chama de uma revolução que mudará a história de todos os distritos para sempre.</p>
+            </div>
+        </div>
+
+        <div id="modal-saga-fadas" class="modal-overlay">
+            <div class="modal-pergaminho">
+                <button class="modal-fechar" onclick="fecharModal('modal-saga-fadas')">&times;</button>
+                <h2>👑 O Povo do Ar — A Corte das Fadas</h2>
+                <p>Em meio à beleza mortal e traiçoeira de Faerie, a humana Jude precisa usar toda a sua astúcia para sobreviver às intrigas da nobreza feérica e controlar o cruel Príncipe Cardan.</p>
+            </div>
+        </div>
+
+        <div id="modal-saga-arquivos" class="modal-overlay">
+            <div class="modal-pergaminho">
+                <button class="modal-fechar" onclick="fecharModal('modal-saga-arquivos')">&times;</button>
+                <h2>🗡️ Trono de Vidro — Os Arquivos Preservados</h2>
+                <p>A lendária assassina Celaena Sardothien ganha uma chance de liberdade ao competir em um torneio sádico, descobrindo gradualmente que magia antiga e forças sombrias espreitam o castelo de Adarlan.</p>
+            </div>
+        </div>
+
+        <div id="modal-saga-janela" class="modal-overlay">
+            <div class="modal-pergaminho">
+                <button class="modal-fechar" onclick="fecharModal('modal-saga-janela')">&times;</button>
+                <h2>🃏 Uma Janela Sombria — O Jogo de Cartas</h2>
+                <p>Uma imersão em reinos sombrios conectados por portas proibidas, feitiçaria perigosa e enigmas que testam a sanidade daqueles que ousam cruzar o véu.</p>
+            </div>
+        </div>
+
+        <div id="modal-saga-vilao" class="modal-overlay">
+            <div class="modal-pergaminho">
+                <button class="modal-fechar" onclick="fecharModal('modal-saga-vilao')">&times;</button>
+                <h2>☕ Assistente do Vilão — O Escritório do Vilão</h2>
+                <p>Uma abordagem hilária, caótica e romântica do submundo do crime. Quando conseguir um emprego na associação do maior vilão da cidade parece uma boa ideia, o caos administrativo e o amor aparecem onde menos se espera.</p>
+            </div>
+        </div>
+
+
+        <!-- SOBRE -->
+        <section id="sobre">
+            <div class="sobre-conteudo">
+                <span class="sobre-detalhe">✦ O REGISTRO DA RAINHA ✦</span>
+                <h2>A História da Biblioteca</h2>
+                <h3>Onde toda história encontra seu reino.</h3>
+                <p>Dizem pelas brumas do tempo que, em um reino há muito esquecido, existiu uma rainha convicta de que cada livro guardava um universo inteiro.</p>
+                <p>Ao longo dos dias e das eras, ela reuniu o inexprimível: crônicas de terras além do mapa, feras colossais adormecidas no silêncio, impérios sepultados pelo vento e paixões que desafiaram a própria eternidade.</p>
+                <p>Mas as páginas ficaram estreitas demais para conter tanta vida. Para que o tecido dos mundos não se desfizesse no esquecimento, ela ergueu a sua imensa biblioteca secreta. A lenda diz que as pesadas portas de ferro e carvalho não respondem a forças comuns: elas apenas se entreabrem para o viajante que carrega a alma pura, o passo firme e a vontade irrevogável de zelar pelos segredos do multiverso.</p>
+                <p>Se as sombras da Biblioteca da Rainha Perdida decidiram cruzar o seu caminho, compreenda o peso do seu destino: você é agora o guardião de onde moram as últimas fagulhas da magia. E, a partir de agora, o segredo pertence a você.</p>
+                <span class="sobre-assinatura">— Fragmentos resgatados do acervo da última bibliotecária juramentada.</span>
+            </div>
+        </section>
+
+        <!-- CONTATO -->
+        <section id="contato">
+            <h2>Envie uma Mensagem</h2>
+            <form id="form-contato">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" required>
+
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" required>
+
+                <label for="mensagem">Mensagem:</label>
+                <textarea id="mensagem" required></textarea>
+
+                <button type="submit">Enviar mensagem</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>A Biblioteca da Rainha Perdida</p>
+        <p>Onde histórias esquecidas encontram seus leitores.</p>
+        <p>&copy; 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
