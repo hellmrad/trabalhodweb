@@ -144,12 +144,17 @@ if (rodape) {
 
 
 /* =================================
-6. ACORDEÃO DAS ALAS (100% FUNCIONAL)
+6. ACORDEÃO DAS ALAS (SEPARADO DO EMOJI)
 ================================= */
 
 const botoesAlas = document.querySelectorAll(".ala-botao");
 botoesAlas.forEach(function(botao) {
-    botao.addEventListener("click", function() {
+    botao.addEventListener("click", function(event) {
+        // Se o clique foi no emoji, não abre/fecha a lista de livros
+        if (event.target.closest(".icone-saga")) {
+            return;
+        }
+
         const ala = botao.closest(".ala");
         if (ala) {
             ala.classList.toggle("aberta");
@@ -179,12 +184,14 @@ function fecharModal(idModal) {
     }
 }
 
-// Fecha o modal ao clicar fora da área do pergaminho
-window.onclick = function(event) {
+// Fecha o modal de primeira ao clicar fora da área do pergaminho
+window.addEventListener("click", function(event) {
     if (event.target.classList.contains('modal-overlay')) {
         event.target.style.display = 'none';
     }
-}
+});
+
+
 /* =================================
 8. TRILHA SONORA DE FUNDO (Definitiva e Contínua)
 ================================= */
