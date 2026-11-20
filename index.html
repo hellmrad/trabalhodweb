@@ -8,20 +8,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <!-- Vídeo fixo no fundo do site inteiro -->
     <video autoplay muted loop playsinline class="video-fundo-site">
-        <source src="imagens/fundo.mp4" type="video/mp4">
+        <source src="fundo.mp4" type="video/mp4">
     </video>
     <div class="overlay-fundo-site"></div>
 
     <!-- CABEÇALHO -->
     <header>
       <div class="cabecalho">
-        <img src="imagens/brasao.jpg" alt="Brasão da Biblioteca da Rainha Perdida">
+        <img src="brasao.jpg" alt="Brasão da Biblioteca da Rainha Perdida">
         <div class="logo">
             <h1>A Biblioteca da Rainha Perdida</h1>
             <p>Procura-se bibliotecária para antigos reinos. Venha se perder nas histórias coletadas pela Rainha Perdida.</p>
@@ -70,7 +70,7 @@
             <div class="alas-container">
 
                 <!-- 1. A ALA DOS DRAGÕES -->
-                <article class="ala ala-dragoes" data-musica="audio/dragoes.mp3">
+                <article class="ala ala-dragoes" data-musica="dragoes.mp3">
                     <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-dragoes')">
                         <span class="icone-saga">🐉</span>
                         <div>
@@ -89,7 +89,7 @@
                 </article>
 
                 <!-- 2. O REINO DAS CINZAS -->
-                <article class="ala ala-cinzas" data-musica="audio/cinzas.mp3">
+                <article class="ala ala-cinzas" data-musica="cinzas.mp3">
                     <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-cinzas')">
                         <span class="icone-saga">⚔️</span>
                         <div>
@@ -111,7 +111,7 @@
                 </article>
 
                 <!-- 3. OS JOGOS DA CAPITAL -->
-                <article class="ala ala-capital" data-musica="audio/capital.mp3">
+                <article class="ala ala-capital" data-musica="capital.mp3">
                     <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-capital')">
                         <span class="icone-saga">🏹</span>
                         <div>
@@ -132,7 +132,7 @@
                 </article>
 
                 <!-- 4. A CORTE DAS FADAS -->
-                <article class="ala ala-fadas" data-musica="audio/fadas.mp3">
+                <article class="ala ala-fadas" data-musica="fadas.mp3">
                     <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-fadas')">
                         <span class="icone-saga">👑</span>
                         <div>
@@ -151,7 +151,7 @@
                 </article>
 
                 <!-- 5. OS ARQUIVOS PRESERVADOS -->
-                <article class="ala ala-arquivos" data-musica="audio/arquivos.mp3">
+                <article class="ala ala-arquivos" data-musica="arquivos.mp3">
                     <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-arquivos')">
                         <span class="icone-saga">🗡️</span>
                         <div>
@@ -174,7 +174,7 @@
                 </article>
 
                 <!-- 6. O JOGO DE CARTAS -->
-                <article class="ala ala-janela" data-musica="audio/janela.mp3">
+                <article class="ala ala-janela" data-musica="janela.mp3">
                     <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-janela')">
                         <span class="icone-saga">🃏</span>
                         <div>
@@ -192,7 +192,7 @@
                 </article>
 
                 <!-- 7. O ESCRITÓRIO DO VILÃO -->
-                <article class="ala ala-vilao" data-musica="audio/vilao.mp3">
+                <article class="ala ala-vilao" data-musica="vilao.mp3">
                     <button class="ala-botao" type="button" onclick="abrirModal('modal-saga-vilao')">
                         <span class="icone-saga">☕</span>
                         <div>
@@ -316,6 +316,6 @@
         <p>&copy; 2026 - Todos os direitos reservados.</p>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
