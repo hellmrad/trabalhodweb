@@ -262,9 +262,18 @@ section > p {
 }
 
 .icone-saga {
-    font-size: 28px;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
-    transition: transform 0.3s ease;
+    transition: transform 0.25s ease, filter 0.25s ease, background-color 0.25s ease;
+}
+
+.icone-saga:hover {
+    transform: scale(1.25);
+    background-color: rgba(177, 138, 75, 0.2);
+    filter: drop-shadow(0 0 10px rgba(255, 224, 138, 0.9));
 }
 
 .ala-botao div {
@@ -283,10 +292,6 @@ section > p {
     font-size: 13px;
     margin-bottom: 0;
     opacity: 0.85;
-}
-
-.ala:hover .icone-saga {
-    transform: scale(1.15);
 }
 
 .seta {
@@ -607,24 +612,29 @@ footer p:first-child {
 
 .modal-fechar {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 12px;
+    right: 16px;
+    z-index: 10;
     background: none;
     border: none;
-    font-size: 26px;
+    font-size: 28px;
+    line-height: 1;
+    padding: 4px 8px;
     color: var(--dourado);
     cursor: pointer;
     font-weight: bold;
-    transition: color 0.2s;
+    transition: color 0.2s, transform 0.2s;
 }
 
 .modal-fechar:hover {
-    color: #FFF;
+    color: #FFE08A;
+    transform: scale(1.15);
 }
 
 .modal-pergaminho h2 {
     font-size: 22px;
     margin-bottom: 15px;
+    padding-right: 30px;
     border-bottom: 2px solid var(--dourado);
     padding-bottom: 10px;
     color: var(--dourado);
