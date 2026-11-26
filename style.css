@@ -964,3 +964,49 @@ h1, h2, h3, .botao {
     display: none !important;
 }
 
+/* BOTÃO VOLTAR AO TOPO */
+
+#voltar-topo {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+
+    width: 48px;
+    height: 48px;
+
+    background-color: #541D2B;
+    color: #F2E8D6;
+
+    border: 2px solid #B18A4B;
+    border-radius: 50%;
+
+    font-size: 26px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 999;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#voltar-topo:hover {
+    background-color: #B18A4B;
+    color: #38131D;
+    transform: translateY(-4px);
+}
+
+#voltar-topo.visivel {
+    display: flex;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
