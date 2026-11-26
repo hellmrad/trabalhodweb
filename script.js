@@ -484,15 +484,6 @@ function mostrarResultado() {
     }
 }
 
-    const resultado = resultadosQuiz[alaEscolhida];
-
-    document.getElementById("resultado-ala").textContent =
-        resultado.nome;
-
-    document.getElementById("resultado-descricao").textContent =
-        resultado.descricao;
-
-
 const botaoReiniciarQuiz = document.getElementById("reiniciar-quiz");
 
 if (botaoReiniciarQuiz) {
