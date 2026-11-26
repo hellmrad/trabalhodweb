@@ -242,3 +242,223 @@ alasMusica.forEach(function(ala) {
         musicaFundo.currentTime = 0;
     });
 });
+// QUIZ DA BIBLIOTECÁRIA
+
+const perguntasQuiz = [
+    {
+        pergunta: "Ao entrar em uma biblioteca misteriosa, o que mais chamaria sua atenção?",
+        opcoes: [
+            {
+                texto: "Um livro antigo que parece guardar um segredo.",
+                ala: "cinzas"
+            },
+            {
+                texto: "Uma criatura lendária escondida entre as estantes.",
+                ala: "dragoes"
+            },
+            {
+                texto: "Uma passagem secreta para um reino encantado.",
+                ala: "fadas"
+            },
+            {
+                texto: "Um diário misterioso pertencente a um antigo vilão.",
+                ala: "viloes"
+            }
+        ]
+    },
+    {
+        pergunta: "Qual aventura você escolheria viver?",
+        opcoes: [
+            {
+                texto: "Desvendar mistérios de um passado esquecido.",
+                ala: "cinzas"
+            },
+            {
+                texto: "Explorar territórios dominados por dragões.",
+                ala: "dragoes"
+            },
+            {
+                texto: "Descobrir os segredos de um mundo mágico.",
+                ala: "fadas"
+            },
+            {
+                texto: "Conhecer personagens que desafiam todas as regras.",
+                ala: "viloes"
+            }
+        ]
+    },
+    {
+        pergunta: "Você encontrou uma porta que nunca havia visto antes. O que faz?",
+        opcoes: [
+            {
+                texto: "Procuro pistas sobre quem a construiu.",
+                ala: "cinzas"
+            },
+            {
+                texto: "Abro sem hesitar. Pode haver algo extraordinário!",
+                ala: "dragoes"
+            },
+            {
+                texto: "Investigo se ela leva a outro mundo.",
+                ala: "fadas"
+            },
+            {
+                texto: "Tento descobrir o que estão escondendo de mim.",
+                ala: "viloes"
+            }
+        ]
+    },
+    {
+        pergunta: "Qual elemento não poderia faltar na sua história favorita?",
+        opcoes: [
+            {
+                texto: "Segredos, reviravoltas e descobertas.",
+                ala: "cinzas"
+            },
+            {
+                texto: "Batalhas épicas e criaturas fantásticas.",
+                ala: "dragoes"
+            },
+            {
+                texto: "Magia, encantamento e mundos extraordinários.",
+                ala: "fadas"
+            },
+            {
+                texto: "Personagens complexos e moralmente ambíguos.",
+                ala: "viloes"
+            }
+        ]
+    },
+    {
+        pergunta: "Se pudesse guardar um único objeto na biblioteca, qual seria?",
+        opcoes: [
+            {
+                texto: "Um manuscrito que revela histórias esquecidas.",
+                ala: "cinzas"
+            },
+            {
+                texto: "Uma escama de dragão com poderes misteriosos.",
+                ala: "dragoes"
+            },
+            {
+                texto: "Uma flor encantada de um reino distante.",
+                ala: "fadas"
+            },
+            {
+                texto: "Uma carta que revela os planos de alguém poderoso.",
+                ala: "viloes"
+            }
+        ]
+    }
+];
+
+const resultadosQuiz = {
+    cinzas: {
+        nome: "Ala das Cinzas",
+        descricao: "Você tem espírito investigativo e gosta de histórias que escondem segredos. A Ala das Cinzas guarda mistérios, memórias e narrativas que merecem ser descobertas."
+    },
+
+    dragoes: {
+        nome: "Ala dos Dragões",
+        descricao: "Sua curiosidade leva você a grandes aventuras! A Ala dos Dragões reúne histórias de criaturas lendárias, coragem e mundos extraordinários."
+    },
+
+    fadas: {
+        nome: "Ala das Fadas",
+        descricao: "Você é atraída por mundos encantados e possibilidades mágicas. A Ala das Fadas é o lugar das descobertas, dos reinos fantásticos e dos encantamentos."
+    },
+
+    viloes: {
+        nome: "Gabinete dos Vilões",
+        descricao: "Você gosta de personagens complexos, segredos e histórias que fogem do óbvio. O Gabinete dos Vilões reserva narrativas cheias de reviravoltas."
+    }
+};
+
+let perguntaAtual = 0;
+let pontuacaoQuiz = {
+    cinzas: 0,
+    dragoes: 0,
+    fadas: 0,
+    viloes: 0
+};
+
+const elementoPergunta = document.getElementById("quiz-pergunta");
+const elementoOpcoes = document.getElementById("quiz-opcoes");
+const elementoProgresso = document.getElementById("quiz-progresso");
+const elementoConteudo = document.getElementById("quiz-conteudo");
+const elementoResultado = document.getElementById("quiz-resultado");
+
+function mostrarPergunta() {
+    const pergunta = perguntasQuiz[perguntaAtual];
+
+    elementoProgresso.textContent =
+        `Pergunta ${perguntaAtual + 1} de ${perguntasQuiz.length}`;
+
+    elementoPergunta.textContent = pergunta.pergunta;
+
+    elementoOpcoes.innerHTML = "";
+
+    pergunta.opcoes.forEach(opcao => {
+        const botao = document.createElement("button");
+
+        botao.type = "button";
+        botao.classList.add("quiz-opcao");
+        botao.textContent = opcao.texto;
+
+        botao.addEventListener("click", function () {
+            pontuacaoQuiz[opcao.ala]++;
+
+            perguntaAtual++;
+
+            if (perguntaAtual < perguntasQuiz.length) {
+                mostrarPergunta();
+            } else {
+                mostrarResultado();
+            }
+        });
+
+        elementoOpcoes.appendChild(botao);
+    });
+}
+
+function mostrarResultado() {
+    elementoConteudo.hidden = true;
+    elementoResultado.hidden = false;
+
+    const alaEscolhida = Object.keys(pontuacaoQuiz).reduce(
+        (maior, ala) => {
+            return pontuacaoQuiz[ala] > pontuacaoQuiz[maior]
+                ? ala
+                : maior;
+        },
+        "cinzas"
+    );
+
+    const resultado = resultadosQuiz[alaEscolhida];
+
+    document.getElementById("resultado-ala").textContent =
+        resultado.nome;
+
+    document.getElementById("resultado-descricao").textContent =
+        resultado.descricao;
+}
+
+document.getElementById("reiniciar-quiz").addEventListener("click", function () {
+    perguntaAtual = 0;
+
+    pontuacaoQuiz = {
+        cinzas: 0,
+        dragoes: 0,
+        fadas: 0,
+        viloes: 0
+    };
+
+    elementoResultado.hidden = true;
+    elementoConteudo.hidden = false;
+
+    mostrarPergunta();
+});
+
+if (elementoPergunta && elementoOpcoes) {
+    mostrarPergunta();
+}
