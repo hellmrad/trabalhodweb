@@ -1172,3 +1172,30 @@ if (formularioInscricao) {
 
     });
 }
+/* =================================
+25. BOTÃO VOLTAR AO TOPO
+================================= */
+
+const botaoVoltarTopo = document.getElementById("voltar-topo");
+
+if (botaoVoltarTopo) {
+
+    window.addEventListener("scroll", function() {
+
+        if (window.scrollY > 300) {
+            botaoVoltarTopo.classList.add("visivel");
+        } else {
+            botaoVoltarTopo.classList.remove("visivel");
+        }
+
+    });
+
+    botaoVoltarTopo.addEventListener("click", function() {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+}
