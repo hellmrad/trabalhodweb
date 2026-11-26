@@ -1,3 +1,4 @@
+
 /* =================================
 1. CADASTRO DOS LIVROS
 ================================= */
@@ -67,11 +68,13 @@ const livros = [
 const catalogo = document.getElementById("catalogo-livros");
 
 function mostrarLivros(lista) {
+
     if (!catalogo) return;
 
     catalogo.innerHTML = "";
 
     lista.forEach(function(livro) {
+
         const cartao = document.createElement("div");
 
         cartao.classList.add("livro");
@@ -96,6 +99,7 @@ function mostrarLivros(lista) {
 ================================= */
 
 function mostrarDestaques() {
+
     const areaDestaques = document.getElementById("livros-destaque");
 
     if (!areaDestaques) return;
@@ -105,11 +109,13 @@ function mostrarDestaques() {
     areaDestaques.innerHTML = "";
 
     livrosEscolhidos.forEach(function(id) {
+
         const livro = livros.find(function(item) {
             return item.id === id;
         });
 
         if (livro) {
+
             const cartao = document.createElement("div");
 
             cartao.classList.add("livro", "livro-destaque");
@@ -137,7 +143,9 @@ function mostrarDestaques() {
 const formulario = document.getElementById("form-contato");
 
 if (formulario) {
+
     formulario.addEventListener("submit", function(event) {
+
         event.preventDefault();
 
         const nome = document.getElementById("nome").value;
@@ -156,6 +164,7 @@ if (formulario) {
 const rodape = document.querySelector("footer p:last-child");
 
 if (rodape) {
+
     const anoAtual = new Date().getFullYear();
 
     rodape.innerHTML = "&copy; " + anoAtual + " - Todos os direitos reservados.";
@@ -169,6 +178,7 @@ if (rodape) {
 const botoesAlas = document.querySelectorAll(".ala-botao");
 
 botoesAlas.forEach(function(botao) {
+
     botao.addEventListener("click", function(event) {
 
         if (event.target.closest(".icone-saga")) {
@@ -195,6 +205,7 @@ if (catalogo) {
 mostrarDestaques();
 
 function abrirModal(idModal) {
+
     const modal = document.getElementById(idModal);
 
     if (modal) {
@@ -203,6 +214,7 @@ function abrirModal(idModal) {
 }
 
 function fecharModal(idModal) {
+
     const modal = document.getElementById(idModal);
 
     if (modal) {
@@ -211,6 +223,7 @@ function fecharModal(idModal) {
 }
 
 window.addEventListener("click", function(event) {
+
     if (event.target.classList.contains("modal-overlay")) {
         event.target.style.display = "none";
     }
@@ -226,16 +239,20 @@ const musicaFundo = new Audio();
 musicaFundo.loop = true;
 
 document.addEventListener("click", function() {
+
     if (musicaFundo.paused && musicaFundo.src) {
         musicaFundo.play().catch(() => {});
     }
+
 }, { once: true });
+
 
 const alasMusica = document.querySelectorAll(".ala");
 
 alasMusica.forEach(function(ala) {
 
     ala.addEventListener("mouseenter", function() {
+
         const arquivoMusica = ala.dataset.musica;
 
         if (!arquivoMusica) return;
@@ -252,6 +269,7 @@ alasMusica.forEach(function(ala) {
             console.log("Aguardando interação:", erro);
         });
     });
+
 
     ala.addEventListener("mouseleave", function(evento) {
 
@@ -387,6 +405,7 @@ const perguntasQuiz = [
 
 
 const resultadosQuiz = {
+
     cinzas: {
         nome: "Ala das Cinzas",
         descricao: "Você tem espírito investigativo e gosta de histórias que escondem segredos. A Ala das Cinzas guarda mistérios, memórias e narrativas que merecem ser descobertas."
@@ -475,7 +494,11 @@ function mostrarPergunta() {
 }
 
 
-function mostrarResultado() {
+/* =================================
+10. MOSTRAR E SALVAR RESULTADO
+================================= */
+
+function mostrarResultado(alaSalva = null) {
 
     if (!elementoConteudo || !elementoResultado) {
         return;
@@ -484,7 +507,7 @@ function mostrarResultado() {
     elementoConteudo.hidden = true;
     elementoResultado.hidden = false;
 
-    const alaEscolhida = Object.keys(pontuacaoQuiz).reduce(
+    const alaEscolhida = alaSalva || Object.keys(pontuacaoQuiz).reduce(
         function(maior, ala) {
             return pontuacaoQuiz[ala] > pontuacaoQuiz[maior]
                 ? ala
@@ -495,12 +518,39 @@ function mostrarResultado() {
 
     const resultado = resultadosQuiz[alaEscolhida];
 
-    document.getElementById("resultado-ala").textContent =
-        resultado.nome;
+    if (!resultado) {
+        console.error("Ala não encontrada.");
+        return;
+    }
 
-    document.getElementById("resultado-descricao").textContent =
-        resultado.descricao;
+    // SALVAR A ALA NO CADASTRO DA CANDIDATA
 
+    if (emailAtual) {
+
+        const inscricoes = recuperarInscricoes();
+        const candidata = inscricoes[emailAtual];
+
+        if (candidata && candidata.situacao === "aprovada") {
+
+            candidata.ala = alaEscolhida;
+
+            localStorage.setItem(
+                "inscricoesBiblioteca",
+                JSON.stringify(inscricoes)
+            );
+        }
+    }
+
+    const elementoAla = document.getElementById("resultado-ala");
+    const elementoDescricao = document.getElementById("resultado-descricao");
+
+    if (elementoAla) {
+        elementoAla.textContent = resultado.nome;
+    }
+
+    if (elementoDescricao) {
+        elementoDescricao.textContent = resultado.descricao;
+    }
 
     // BUSCAR O LIVRO RECOMENDADO
 
@@ -540,7 +590,7 @@ function mostrarResultado() {
 
 
 /* =================================
-10. REINICIAR O QUIZ DE AFINIDADE
+11. REINICIAR O QUIZ DE AFINIDADE
 ================================= */
 
 const botaoReiniciarQuiz = document.getElementById("reiniciar-quiz");
@@ -569,10 +619,8 @@ if (botaoReiniciarQuiz) {
 
 
 /* =================================
-11. INSCRIÇÃO DA BIBLIOTECÁRIA
+12. PERGUNTAS DO DESAFIO DE CONHECIMENTO
 ================================= */
-
-// PERGUNTAS DE CONHECIMENTO
 
 const perguntasConhecimento = [
     {
@@ -628,7 +676,9 @@ const perguntasConhecimento = [
 ];
 
 
-// ELEMENTOS DO HTML
+/* =================================
+13. ELEMENTOS DO HTML
+================================= */
 
 const formularioInscricao = document.getElementById("form-inscricao");
 const areaInscricao = document.getElementById("quiz-inscricao");
@@ -651,7 +701,9 @@ const contadorEspera = document.getElementById("contador-espera");
 const botaoTentarNovamente = document.getElementById("tentar-novamente");
 
 
-// VARIÁVEIS DO DESAFIO
+/* =================================
+14. VARIÁVEIS DO DESAFIO
+================================= */
 
 let perguntaConhecimentoAtual = 0;
 let acertosConhecimento = 0;
@@ -659,7 +711,9 @@ let emailAtual = "";
 let intervaloContagem = null;
 
 
-// MÚSICA DE SUSPENSE DA SELEÇÃO
+/* =================================
+15. MÚSICA DE SUSPENSE
+================================= */
 
 const musicaSuspense = new Audio("fundosuspense.mp3");
 
@@ -681,27 +735,33 @@ function pararMusicaSuspense() {
 
 
 /* =================================
-12. RECUPERAR INSCRIÇÕES
+16. RECUPERAR INSCRIÇÕES
 ================================= */
 
 function recuperarInscricoes() {
 
     try {
+
         return JSON.parse(
             localStorage.getItem("inscricoesBiblioteca")
         ) || {};
 
     } catch (erro) {
+
         return {};
     }
 }
 
 
 /* =================================
-13. ABRIR O QUIZ DE AFINIDADE
+17. ABRIR O QUIZ DE AFINIDADE
 ================================= */
 
 function abrirQuizAfinidade() {
+
+    if (areaInscricao) {
+        areaInscricao.hidden = true;
+    }
 
     if (areaExperiencia) {
         areaExperiencia.hidden = false;
@@ -734,7 +794,33 @@ function abrirQuizAfinidade() {
 
 
 /* =================================
-14. INICIAR O DESAFIO DE CONHECIMENTO
+18. ABRIR RESULTADO JÁ SALVO
+================================= */
+
+function abrirResultadoSalvo(ala) {
+
+    if (areaInscricao) {
+        areaInscricao.hidden = true;
+    }
+
+    if (areaConhecimento) {
+        areaConhecimento.hidden = true;
+    }
+
+    if (resultadoSelecao) {
+        resultadoSelecao.hidden = true;
+    }
+
+    if (areaExperiencia) {
+        areaExperiencia.hidden = false;
+    }
+
+    mostrarResultado(ala);
+}
+
+
+/* =================================
+19. INICIAR O DESAFIO DE CONHECIMENTO
 ================================= */
 
 function iniciarDesafio() {
@@ -765,7 +851,7 @@ function iniciarDesafio() {
 
 
 /* =================================
-15. MOSTRAR PERGUNTA DE CONHECIMENTO
+20. MOSTRAR PERGUNTA DE CONHECIMENTO
 ================================= */
 
 function mostrarPerguntaConhecimento() {
@@ -816,7 +902,7 @@ function mostrarPerguntaConhecimento() {
 
 
 /* =================================
-16. FINALIZAR DESAFIO DE CONHECIMENTO
+21. FINALIZAR DESAFIO DE CONHECIMENTO
 ================================= */
 
 function finalizarDesafio() {
@@ -866,8 +952,6 @@ function finalizarDesafio() {
             botaoTentarNovamente.hidden = true;
         }
 
-        // APROVADA: ABRE O QUIZ DE AFINIDADE
-
         abrirQuizAfinidade();
 
     } else {
@@ -899,7 +983,7 @@ function finalizarDesafio() {
 
 
 /* =================================
-17. CONTADOR DE DUAS HORAS
+22. CONTADOR DE DUAS HORAS
 ================================= */
 
 function iniciarContagem() {
@@ -951,7 +1035,7 @@ function iniciarContagem() {
 
 
 /* =================================
-18. BOTÃO DE NOVA TENTATIVA
+23. BOTÃO DE NOVA TENTATIVA
 ================================= */
 
 if (botaoTentarNovamente) {
@@ -977,7 +1061,7 @@ if (botaoTentarNovamente) {
 
 
 /* =================================
-19. ENVIO DO FORMULÁRIO DE INSCRIÇÃO
+24. ENVIO DO FORMULÁRIO DE INSCRIÇÃO
 ================================= */
 
 if (formularioInscricao) {
@@ -1010,7 +1094,8 @@ if (formularioInscricao) {
                 email: emailAtual,
                 situacao: "em_andamento",
                 dataInscricao: new Date().toISOString(),
-                proximaTentativa: null
+                proximaTentativa: null,
+                ala: null
             };
 
             localStorage.setItem(
@@ -1025,15 +1110,26 @@ if (formularioInscricao) {
             areaInscricao.hidden = true;
         }
 
-        // CANDIDATA JÁ APROVADA
+        // APROVADA E COM ALA SALVA
 
-        if (candidata.situacao === "aprovada") {
+        if (
+            candidata.situacao === "aprovada" &&
+            candidata.ala
+        ) {
+
+            abrirResultadoSalvo(candidata.ala);
+
+        }
+
+        // APROVADA, MAS AINDA SEM ALA
+
+        else if (candidata.situacao === "aprovada") {
 
             abrirQuizAfinidade();
 
         }
 
-        // CANDIDATA AINDA ESTÁ NO PERÍODO DE ESPERA
+        // AINDA NO PERÍODO DE ESPERA
 
         else if (
             candidata.situacao === "aguardando" &&
@@ -1066,7 +1162,7 @@ if (formularioInscricao) {
 
         }
 
-        // CANDIDATA PODE COMEÇAR OU TENTAR NOVAMENTE
+        // CANDIDATA NOVA OU LIBERADA PARA TENTAR NOVAMENTE
 
         else {
 
