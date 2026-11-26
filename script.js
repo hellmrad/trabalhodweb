@@ -443,24 +443,24 @@ function mostrarResultado() {
         resultado.descricao;
 }
 
-document.getElementById("reiniciar-quiz").addEventListener("click", function () {
-    perguntaAtual = 0;
+const botaoReiniciarQuiz = document.getElementById("reiniciar-quiz");
 
-    pontuacaoQuiz = {
-        cinzas: 0,
-        dragoes: 0,
-        fadas: 0,
-        viloes: 0
-    };
+if (botaoReiniciarQuiz) {
+    botaoReiniciarQuiz.addEventListener("click", function () {
+        perguntaAtual = 0;
 
-    elementoResultado.hidden = true;
-    elementoConteudo.hidden = false;
+        pontuacaoQuiz = {
+            cinzas: 0,
+            dragoes: 0,
+            fadas: 0,
+            viloes: 0
+        };
 
-    mostrarPergunta();
-});
+        elementoResultado.hidden = true;
+        elementoConteudo.hidden = false;
 
-if (elementoPergunta && elementoOpcoes) {
-    mostrarPergunta();
+        mostrarPergunta();
+    });
 }
 /* =================================
    INSCRIÇÃO DA BIBLIOTECÁRIA
