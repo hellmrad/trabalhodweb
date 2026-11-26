@@ -792,6 +792,11 @@ if (formularioInscricao) {
             );
 
         }
+        // PREPARAR A PRIMEIRA PERGUNTA DO QUIZ DE AFINIDADE
+
+if (elementoPergunta && elementoOpcoes) {
+    mostrarPergunta();
+}
 
         localStorage.setItem("emailCandidataAtual", emailAtual);
 
