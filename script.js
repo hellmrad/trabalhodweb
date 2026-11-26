@@ -467,6 +467,8 @@ if (elementoPergunta && elementoOpcoes) {
 ================================= */
 
 const formularioInscricao = document.getElementById("form-inscricao");
+console.log("BLOCO DE INSCRIÇÃO CARREGADO!");
+console.log(formularioInscricao);
 const areaInscricao = document.getElementById("quiz-inscricao");
 const areaExperiencia = document.getElementById("quiz-experiencia");
 
