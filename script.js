@@ -374,6 +374,13 @@ const resultadosQuiz = {
     }
 };
 
+const livrosPorAla = {
+    cinzas: 5,
+    dragoes: 1,
+    fadas: 4,
+    viloes: 6
+};
+
 let perguntaAtual = 0;
 let pontuacaoQuiz = {
     cinzas: 0,
@@ -433,6 +440,49 @@ function mostrarResultado() {
         },
         "cinzas"
     );
+
+    const resultado = resultadosQuiz[alaEscolhida];
+
+    document.getElementById("resultado-ala").textContent =
+        resultado.nome;
+
+    document.getElementById("resultado-descricao").textContent =
+        resultado.descricao;
+
+    // BUSCAR O LIVRO RECOMENDADO
+
+    const idLivro = livrosPorAla[alaEscolhida];
+
+    const livroRecomendado = livros.find(function(livro) {
+        return livro.id === idLivro;
+    });
+
+    const areaLivro = document.getElementById("livro-recomendado");
+
+    if (livroRecomendado && areaLivro) {
+        areaLivro.innerHTML = `
+            <h3>Sua primeira leitura como bibliotecária:</h3>
+
+            <div class="livro">
+                <img src="${livroRecomendado.imagem}"
+                     alt="${livroRecomendado.nome}">
+
+                <h3>${livroRecomendado.nome}</h3>
+
+                <p>${livroRecomendado.autor}</p>
+
+                <p>R$ ${livroRecomendado.preco.toFixed(2).replace(".", ",")}</p>
+
+                <a href="${livroRecomendado.link}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-amazon">
+                    Conhecer o livro ↗
+                </a>
+            </div>
+        `;
+    }
+}
 
     const resultado = resultadosQuiz[alaEscolhida];
 
