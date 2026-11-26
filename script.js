@@ -462,45 +462,53 @@ document.getElementById("reiniciar-quiz").addEventListener("click", function () 
 if (elementoPergunta && elementoOpcoes) {
     mostrarPergunta();
 }
+/* =================================
+   INSCRIÇÃO DA BIBLIOTECÁRIA
+================================= */
 
-unction mostrarResultado() {
-    elementoConteudo.hidden = true;
-    elementoResultado.hidden = false;
+const formularioInscricao = document.getElementById("form-inscricao");
+const areaInscricao = document.getElementById("quiz-inscricao");
+const areaExperiencia = document.getElementById("quiz-experiencia");
 
-    const alaEscolhida = Object.keys(pontuacaoQuiz).reduce(
-        (maior, ala) => {
-            return pontuacaoQuiz[ala] > pontuacaoQuiz[maior]
-                ? ala
-                : maior;
-        },
-        "cinzas"
-    );
+if (formularioInscricao) {
 
-    const resultado = resultadosQuiz[alaEscolhida];
+    formularioInscricao.addEventListener("submit", function(event) {
 
-    document.getElementById("resultado-ala").textContent =
-        resultado.nome;
+        event.preventDefault();
 
-    document.getElementById("resultado-descricao").textContent =
-        resultado.descricao;
-}
+        const email = document.getElementById("email-candidata")
+            .value.trim().toLowerCase();
 
-document.getElementById("reiniciar-quiz").addEventListener("click", function () {
-    perguntaAtual = 0;
+        let inscricoes = {};
 
-    pontuacaoQuiz = {
-        cinzas: 0,
-        dragoes: 0,
-        fadas: 0,
-        viloes: 0
-    };
+        try {
+            inscricoes = JSON.parse(
+                localStorage.getItem("inscricoesBiblioteca")
+            ) || {};
+        } catch (erro) {
+            inscricoes = {};
+        }
 
-    elementoResultado.hidden = true;
-    elementoConteudo.hidden = false;
+        if (!inscricoes[email]) {
+            inscricoes[email] = {
+                email: email,
+                situacao: "em_andamento",
+                dataInscricao: new Date().toISOString(),
+                proximaTentativa: null,
+                livroRecomendado: null
+            };
 
-    mostrarPergunta();
-});
+            localStorage.setItem(
+                "inscricoesBiblioteca",
+                JSON.stringify(inscricoes)
+            );
+        }
 
-if (elementoPergunta && elementoOpcoes) {
-    mostrarPergunta();
+        localStorage.setItem("emailCandidataAtual", email);
+
+        areaInscricao.hidden = true;
+        areaExperiencia.hidden = false;
+
+    });
+
 }
