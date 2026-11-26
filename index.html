@@ -291,48 +291,85 @@
                 <span class="sobre-assinatura">— Fragmentos resgatados do acervo da última bibliotecária juramentada.</span>
             </div>
         </section>
-        <section id="quiz" class="quiz-section">
 
+<section id="quiz" class="quiz-section">
     <div class="quiz-container">
 
         <h2>O Chamado da Bibliotecária</h2>
 
         <p class="quiz-intro">
             A Biblioteca da Rainha Perdida está à procura de uma nova guardiã.
-            Descubra qual das suas alas está destinada a você!
+            Você está preparada para provar seu valor?
         </p>
 
-        <div id="quiz-conteudo">
+        <!-- ETAPA 1: INSCRIÇÃO -->
+        <div id="quiz-inscricao">
 
-            <p id="quiz-progresso">Pergunta 1 de 5</p>
+            <h3>Registro de Candidatura</h3>
 
-            <h3 id="quiz-pergunta"></h3>
+            <p>
+                Antes de entrar na seleção, registre seu e-mail nos arquivos
+                da Biblioteca. Assim poderemos reconhecer sua candidatura
+                quando retornar.
+            </p>
 
-            <div id="quiz-opcoes"></div>
+            <form id="form-inscricao">
+
+                <label for="email-candidata">E-mail da candidata:</label>
+
+                <input
+                    type="email"
+                    id="email-candidata"
+                    placeholder="Digite seu e-mail"
+                    required
+                >
+
+                <button type="submit" class="quiz-opcao">
+                    Iniciar seleção
+                </button>
+
+            </form>
+
+            <p id="mensagem-inscricao" role="status"></p>
 
         </div>
 
-        <div id="quiz-resultado" class="quiz-resultado" hidden>
+        <!-- ETAPA 2: QUIZ -->
+        <div id="quiz-experiencia" hidden>
 
-            <h3>Seu destino foi revelado!</h3>
+            <div id="quiz-conteudo">
 
-            <h2 id="resultado-ala"></h2>
+                <p id="quiz-progresso">Pergunta 1 de 5</p>
 
-            <p id="resultado-descricao"></p>
+                <h3 id="quiz-pergunta"></h3>
 
-            <p class="mensagem-bibliotecaria">
-                Parabéns! Você foi aceita como bibliotecária da Rainha Perdida.
-            </p>
+                <div id="quiz-opcoes"></div>
 
-            <button id="reiniciar-quiz" type="button">
-                Fazer o quiz novamente
-            </button>
+            </div>
+
+            <div id="quiz-resultado" class="quiz-resultado" hidden>
+
+                <h3>Seu destino foi revelado!</h3>
+
+                <h2 id="resultado-ala"></h2>
+
+                <p id="resultado-descricao"></p>
+
+                <p class="mensagem-bibliotecaria">
+                    Parabéns! Você foi aceita como bibliotecária da Rainha Perdida.
+                </p>
+
+                <button id="reiniciar-quiz" type="button">
+                    Fazer o quiz novamente
+                </button>
+
+            </div>
 
         </div>
 
     </div>
-
 </section>
+
 
         <!-- CONTATO -->
         <section id="contato">
