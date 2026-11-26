@@ -834,7 +834,12 @@ h1, h2, h3, .botao {
     flex-direction: column;
     gap: 12px;
 }
-
+#quiz-opcoes,
+#conhecimento-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 .quiz-opcao {
     padding: 15px 20px;
     background-color: #4a101f;
