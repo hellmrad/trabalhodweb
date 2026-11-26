@@ -68,10 +68,14 @@ const catalogo = document.getElementById("catalogo-livros");
 
 function mostrarLivros(lista) {
     if (!catalogo) return;
+
     catalogo.innerHTML = "";
+
     lista.forEach(function(livro) {
         const cartao = document.createElement("div");
+
         cartao.classList.add("livro");
+
         cartao.innerHTML = `
             <img src="${livro.imagem}" alt="${livro.nome}">
             <h3>${livro.nome}</h3>
@@ -81,6 +85,7 @@ function mostrarLivros(lista) {
                 Adquirir na Amazon ↗
             </a>
         `;
+
         catalogo.appendChild(cartao);
     });
 }
@@ -92,16 +97,23 @@ function mostrarLivros(lista) {
 
 function mostrarDestaques() {
     const areaDestaques = document.getElementById("livros-destaque");
+
     if (!areaDestaques) return;
+
     const livrosEscolhidos = [5, 4, 6];
+
     areaDestaques.innerHTML = "";
+
     livrosEscolhidos.forEach(function(id) {
         const livro = livros.find(function(item) {
             return item.id === id;
         });
+
         if (livro) {
             const cartao = document.createElement("div");
+
             cartao.classList.add("livro", "livro-destaque");
+
             cartao.innerHTML = `
                 <img src="${livro.imagem}" alt="${livro.nome}">
                 <h3>${livro.nome}</h3>
@@ -111,6 +123,7 @@ function mostrarDestaques() {
                     Adquirir na Amazon ↗
                 </a>
             `;
+
             areaDestaques.appendChild(cartao);
         }
     });
@@ -122,11 +135,15 @@ function mostrarDestaques() {
 ================================= */
 
 const formulario = document.getElementById("form-contato");
+
 if (formulario) {
     formulario.addEventListener("submit", function(event) {
         event.preventDefault();
+
         const nome = document.getElementById("nome").value;
+
         alert("Obrigada pela mensagem, " + nome + "! A biblioteca recebeu seu contato.");
+
         formulario.reset();
     });
 }
@@ -137,25 +154,29 @@ if (formulario) {
 ================================= */
 
 const rodape = document.querySelector("footer p:last-child");
+
 if (rodape) {
     const anoAtual = new Date().getFullYear();
+
     rodape.innerHTML = "&copy; " + anoAtual + " - Todos os direitos reservados.";
 }
 
 
 /* =================================
-6. ACORDEÃO DAS ALAS (SEPARADO DO EMOJI)
+6. ACORDEÃO DAS ALAS
 ================================= */
 
 const botoesAlas = document.querySelectorAll(".ala-botao");
+
 botoesAlas.forEach(function(botao) {
     botao.addEventListener("click", function(event) {
-        // Se o clique foi no emoji, não abre/fecha a lista de livros
+
         if (event.target.closest(".icone-saga")) {
             return;
         }
 
         const ala = botao.closest(".ala");
+
         if (ala) {
             ala.classList.toggle("aberta");
         }
@@ -167,39 +188,43 @@ botoesAlas.forEach(function(botao) {
 7. MODAIS (PERGAMINHOS)
 ================================= */
 
-if (catalogo) mostrarLivros(livros);
+if (catalogo) {
+    mostrarLivros(livros);
+}
+
 mostrarDestaques();
 
 function abrirModal(idModal) {
     const modal = document.getElementById(idModal);
+
     if (modal) {
-        modal.style.display = 'flex';
+        modal.style.display = "flex";
     }
 }
 
 function fecharModal(idModal) {
     const modal = document.getElementById(idModal);
+
     if (modal) {
-        modal.style.display = 'none';
+        modal.style.display = "none";
     }
 }
 
-// Fecha o modal de primeira ao clicar fora da área do pergaminho
 window.addEventListener("click", function(event) {
-    if (event.target.classList.contains('modal-overlay')) {
-        event.target.style.display = 'none';
+    if (event.target.classList.contains("modal-overlay")) {
+        event.target.style.display = "none";
     }
 });
 
 
 /* =================================
-8. TRILHA SONORA DE FUNDO (Definitiva e Contínua)
+8. TRILHA SONORA DE FUNDO
 ================================= */
 
 const musicaFundo = new Audio();
+
 musicaFundo.loop = true;
 
-// Destrava o áudio no primeiro clique em qualquer lugar da página
 document.addEventListener("click", function() {
     if (musicaFundo.paused && musicaFundo.src) {
         musicaFundo.play().catch(() => {});
@@ -209,8 +234,10 @@ document.addEventListener("click", function() {
 const alasMusica = document.querySelectorAll(".ala");
 
 alasMusica.forEach(function(ala) {
+
     ala.addEventListener("mouseenter", function() {
         const arquivoMusica = ala.dataset.musica;
+
         if (!arquivoMusica) return;
 
         if (musicaFundo.src.endsWith(arquivoMusica) && !musicaFundo.paused) {
@@ -227,13 +254,15 @@ alasMusica.forEach(function(ala) {
     });
 
     ala.addEventListener("mouseleave", function(evento) {
-        // Se houver um modal (pergaminho) aberto na tela, NÃO para a música!
-        const modalAberto = document.querySelector('.modal-overlay[style*="display: flex"]');
+
+        const modalAberto = document.querySelector(
+            '.modal-overlay[style*="display: flex"]'
+        );
+
         if (modalAberto) {
             return;
         }
 
-        // Se o mouse continua dentro da própria ala, não para
         if (evento.relatedTarget && ala.contains(evento.relatedTarget)) {
             return;
         }
@@ -242,7 +271,11 @@ alasMusica.forEach(function(ala) {
         musicaFundo.currentTime = 0;
     });
 });
-// QUIZ DA BIBLIOTECÁRIA
+
+
+/* =================================
+9. QUIZ DA BIBLIOTECÁRIA
+================================= */
 
 const perguntasQuiz = [
     {
@@ -352,6 +385,7 @@ const perguntasQuiz = [
     }
 ];
 
+
 const resultadosQuiz = {
     cinzas: {
         nome: "Ala das Cinzas",
@@ -374,6 +408,7 @@ const resultadosQuiz = {
     }
 };
 
+
 const livrosPorAla = {
     cinzas: 5,
     dragoes: 1,
@@ -381,7 +416,9 @@ const livrosPorAla = {
     viloes: 6
 };
 
+
 let perguntaAtual = 0;
+
 let pontuacaoQuiz = {
     cinzas: 0,
     dragoes: 0,
@@ -389,13 +426,20 @@ let pontuacaoQuiz = {
     viloes: 0
 };
 
+
 const elementoPergunta = document.getElementById("quiz-pergunta");
 const elementoOpcoes = document.getElementById("quiz-opcoes");
 const elementoProgresso = document.getElementById("quiz-progresso");
 const elementoConteudo = document.getElementById("quiz-conteudo");
 const elementoResultado = document.getElementById("quiz-resultado");
 
+
 function mostrarPergunta() {
+
+    if (!elementoPergunta || !elementoOpcoes || !elementoProgresso) {
+        return;
+    }
+
     const pergunta = perguntasQuiz[perguntaAtual];
 
     elementoProgresso.textContent =
@@ -405,14 +449,16 @@ function mostrarPergunta() {
 
     elementoOpcoes.innerHTML = "";
 
-    pergunta.opcoes.forEach(opcao => {
+    pergunta.opcoes.forEach(function(opcao) {
+
         const botao = document.createElement("button");
 
         botao.type = "button";
         botao.classList.add("quiz-opcao");
         botao.textContent = opcao.texto;
 
-        botao.addEventListener("click", function () {
+        botao.addEventListener("click", function() {
+
             pontuacaoQuiz[opcao.ala]++;
 
             perguntaAtual++;
@@ -428,12 +474,18 @@ function mostrarPergunta() {
     });
 }
 
+
 function mostrarResultado() {
+
+    if (!elementoConteudo || !elementoResultado) {
+        return;
+    }
+
     elementoConteudo.hidden = true;
     elementoResultado.hidden = false;
 
     const alaEscolhida = Object.keys(pontuacaoQuiz).reduce(
-        (maior, ala) => {
+        function(maior, ala) {
             return pontuacaoQuiz[ala] > pontuacaoQuiz[maior]
                 ? ala
                 : maior;
@@ -449,6 +501,7 @@ function mostrarResultado() {
     document.getElementById("resultado-descricao").textContent =
         resultado.descricao;
 
+
     // BUSCAR O LIVRO RECOMENDADO
 
     const idLivro = livrosPorAla[alaEscolhida];
@@ -460,6 +513,7 @@ function mostrarResultado() {
     const areaLivro = document.getElementById("livro-recomendado");
 
     if (livroRecomendado && areaLivro) {
+
         areaLivro.innerHTML = `
             <h3>Sua primeira leitura como bibliotecária:</h3>
 
@@ -484,10 +538,17 @@ function mostrarResultado() {
     }
 }
 
+
+/* =================================
+10. REINICIAR O QUIZ DE AFINIDADE
+================================= */
+
 const botaoReiniciarQuiz = document.getElementById("reiniciar-quiz");
 
 if (botaoReiniciarQuiz) {
-    botaoReiniciarQuiz.addEventListener("click", function () {
+
+    botaoReiniciarQuiz.addEventListener("click", function() {
+
         perguntaAtual = 0;
 
         pontuacaoQuiz = {
@@ -497,17 +558,18 @@ if (botaoReiniciarQuiz) {
             viloes: 0
         };
 
-        elementoResultado.hidden = true;
-        elementoConteudo.hidden = false;
+        if (elementoResultado && elementoConteudo) {
+            elementoResultado.hidden = true;
+            elementoConteudo.hidden = false;
+        }
 
         mostrarPergunta();
     });
 }
+
+
 /* =================================
-   INSCRIÇÃO DA BIBLIOTECÁRIA
-================================= */
-/* =================================
-   INSCRIÇÃO E SELEÇÃO DA BIBLIOTECÁRIA
+11. INSCRIÇÃO DA BIBLIOTECÁRIA
 ================================= */
 
 // PERGUNTAS DE CONHECIMENTO
@@ -596,6 +658,7 @@ let acertosConhecimento = 0;
 let emailAtual = "";
 let intervaloContagem = null;
 
+
 // MÚSICA DE SUSPENSE DA SELEÇÃO
 
 const musicaSuspense = new Audio("fundosuspense.mp3");
@@ -604,50 +667,116 @@ musicaSuspense.loop = true;
 musicaSuspense.volume = 0.25;
 
 function iniciarMusicaSuspense() {
+
     musicaSuspense.play().catch(function(erro) {
         console.log("Não foi possível iniciar a música:", erro);
     });
 }
 
 function pararMusicaSuspense() {
+
     musicaSuspense.pause();
     musicaSuspense.currentTime = 0;
 }
 
 
-// RECUPERAR INSCRIÇÕES
+/* =================================
+12. RECUPERAR INSCRIÇÕES
+================================= */
 
 function recuperarInscricoes() {
+
     try {
         return JSON.parse(
             localStorage.getItem("inscricoesBiblioteca")
         ) || {};
+
     } catch (erro) {
         return {};
     }
 }
 
 
-// INICIAR O DESAFIO
+/* =================================
+13. ABRIR O QUIZ DE AFINIDADE
+================================= */
+
+function abrirQuizAfinidade() {
+
+    if (areaExperiencia) {
+        areaExperiencia.hidden = false;
+    }
+
+    if (areaConhecimento) {
+        areaConhecimento.hidden = true;
+    }
+
+    if (resultadoSelecao) {
+        resultadoSelecao.hidden = true;
+    }
+
+    perguntaAtual = 0;
+
+    pontuacaoQuiz = {
+        cinzas: 0,
+        dragoes: 0,
+        fadas: 0,
+        viloes: 0
+    };
+
+    if (elementoResultado && elementoConteudo) {
+        elementoResultado.hidden = true;
+        elementoConteudo.hidden = false;
+    }
+
+    mostrarPergunta();
+}
+
+
+/* =================================
+14. INICIAR O DESAFIO DE CONHECIMENTO
+================================= */
 
 function iniciarDesafio() {
-    
+
     iniciarMusicaSuspense();
+
     perguntaConhecimentoAtual = 0;
     acertosConhecimento = 0;
 
-    resultadoSelecao.hidden = true;
-    areaInscricao.hidden = true;
-    areaExperiencia.hidden = true;
-    areaConhecimento.hidden = false;
+    if (resultadoSelecao) {
+        resultadoSelecao.hidden = true;
+    }
+
+    if (areaInscricao) {
+        areaInscricao.hidden = true;
+    }
+
+    if (areaExperiencia) {
+        areaExperiencia.hidden = true;
+    }
+
+    if (areaConhecimento) {
+        areaConhecimento.hidden = false;
+    }
 
     mostrarPerguntaConhecimento();
 }
 
 
-// MOSTRAR PERGUNTA
+/* =================================
+15. MOSTRAR PERGUNTA DE CONHECIMENTO
+================================= */
 
 function mostrarPerguntaConhecimento() {
+
+    if (
+        !elementoConhecimentoPergunta ||
+        !elementoConhecimentoOpcoes ||
+        !elementoConhecimentoProgresso
+    ) {
+        return;
+    }
 
     const pergunta = perguntasConhecimento[perguntaConhecimentoAtual];
 
@@ -679,26 +808,36 @@ function mostrarPerguntaConhecimento() {
             } else {
                 finalizarDesafio();
             }
-
         });
 
         elementoConhecimentoOpcoes.appendChild(botao);
-
     });
-
 }
 
 
-// FINALIZAR DESAFIO
+/* =================================
+16. FINALIZAR DESAFIO DE CONHECIMENTO
+================================= */
 
 function finalizarDesafio() {
 
-      pararMusicaSuspense();
+    pararMusicaSuspense();
+
     const inscricoes = recuperarInscricoes();
     const candidata = inscricoes[emailAtual];
 
-    areaConhecimento.hidden = true;
-    resultadoSelecao.hidden = false;
+    if (!candidata) {
+        console.error("Não foi possível encontrar a inscrição da candidata.");
+        return;
+    }
+
+    if (areaConhecimento) {
+        areaConhecimento.hidden = true;
+    }
+
+    if (resultadoSelecao) {
+        resultadoSelecao.hidden = false;
+    }
 
     if (acertosConhecimento >= 4) {
 
@@ -710,16 +849,26 @@ function finalizarDesafio() {
             JSON.stringify(inscricoes)
         );
 
-        tituloSelecao.textContent = "A Biblioteca reconhece seu valor!";
-        mensagemSelecao.textContent =
-            `Você acertou ${acertosConhecimento} de 5 perguntas e foi aprovada. Sua jornada como bibliotecária começa agora!`;
+        if (tituloSelecao) {
+            tituloSelecao.textContent = "A Biblioteca reconhece seu valor!";
+        }
 
-        contadorEspera.textContent = "";
-        botaoTentarNovamente.hidden = true;
+        if (mensagemSelecao) {
+            mensagemSelecao.textContent =
+                `Você acertou ${acertosConhecimento} de 5 perguntas e foi aprovada. Sua jornada como bibliotecária começa agora!`;
+        }
 
-        // Abre o quiz de afinidade após a aprovação
-        resultadoSelecao.hidden = true;
-        areaExperiencia.hidden = false;
+        if (contadorEspera) {
+            contadorEspera.textContent = "";
+        }
+
+        if (botaoTentarNovamente) {
+            botaoTentarNovamente.hidden = true;
+        }
+
+        // APROVADA: ABRE O QUIZ DE AFINIDADE
+
+        abrirQuizAfinidade();
 
     } else {
 
@@ -734,21 +883,32 @@ function finalizarDesafio() {
             JSON.stringify(inscricoes)
         );
 
-        tituloSelecao.textContent = "A Biblioteca ainda guarda seus segredos...";
-        mensagemSelecao.textContent =
-            `Você acertou ${acertosConhecimento} de 5 perguntas. Ainda não foi desta vez, mas uma nova oportunidade estará disponível em duas horas.`;
+        if (tituloSelecao) {
+            tituloSelecao.textContent =
+                "A Biblioteca ainda guarda seus segredos...";
+        }
+
+        if (mensagemSelecao) {
+            mensagemSelecao.textContent =
+                `Você acertou ${acertosConhecimento} de 5 perguntas. Ainda não foi desta vez, mas uma nova oportunidade estará disponível em duas horas.`;
+        }
 
         iniciarContagem();
     }
-
 }
 
 
-// CONTADOR DE DUAS HORAS
+/* =================================
+17. CONTADOR DE DUAS HORAS
+================================= */
 
 function iniciarContagem() {
 
     clearInterval(intervaloContagem);
+
+    if (!botaoTentarNovamente || !contadorEspera) {
+        return;
+    }
 
     botaoTentarNovamente.hidden = true;
 
@@ -756,6 +916,11 @@ function iniciarContagem() {
 
         const inscricoes = recuperarInscricoes();
         const candidata = inscricoes[emailAtual];
+
+        if (!candidata || !candidata.proximaTentativa) {
+            clearInterval(intervaloContagem);
+            return;
+        }
 
         const restante = candidata.proximaTentativa - Date.now();
 
@@ -785,25 +950,35 @@ function iniciarContagem() {
 }
 
 
-// BOTÃO DE NOVA TENTATIVA
+/* =================================
+18. BOTÃO DE NOVA TENTATIVA
+================================= */
 
-botaoTentarNovamente.addEventListener("click", function() {
+if (botaoTentarNovamente) {
 
-    const inscricoes = recuperarInscricoes();
+    botaoTentarNovamente.addEventListener("click", function() {
 
-    inscricoes[emailAtual].situacao = "em_andamento";
+        const inscricoes = recuperarInscricoes();
 
-    localStorage.setItem(
-        "inscricoesBiblioteca",
-        JSON.stringify(inscricoes)
-    );
+        if (!inscricoes[emailAtual]) {
+            return;
+        }
 
-    iniciarDesafio();
+        inscricoes[emailAtual].situacao = "em_andamento";
 
-});
+        localStorage.setItem(
+            "inscricoesBiblioteca",
+            JSON.stringify(inscricoes)
+        );
+
+        iniciarDesafio();
+    });
+}
 
 
-// ENVIO DO E-MAIL
+/* =================================
+19. ENVIO DO FORMULÁRIO DE INSCRIÇÃO
+================================= */
 
 if (formularioInscricao) {
 
@@ -811,8 +986,19 @@ if (formularioInscricao) {
 
         event.preventDefault();
 
-        emailAtual = document.getElementById("email-candidata")
-            .value.trim().toLowerCase();
+        const campoEmail = document.getElementById("email-candidata");
+
+        if (!campoEmail) {
+            return;
+        }
+
+        emailAtual = campoEmail.value.trim().toLowerCase();
+
+        if (!emailAtual) {
+            return;
+        }
+
+        localStorage.setItem("emailCandidataAtual", emailAtual);
 
         const inscricoes = recuperarInscricoes();
 
@@ -831,27 +1017,19 @@ if (formularioInscricao) {
                 "inscricoesBiblioteca",
                 JSON.stringify(inscricoes)
             );
-
         }
-        // PREPARAR A PRIMEIRA PERGUNTA DO QUIZ DE AFINIDADE
-
-if (elementoPergunta && elementoOpcoes) {
-    mostrarPergunta();
-}
-
-        localStorage.setItem("emailCandidataAtual", emailAtual);
 
         const candidata = inscricoes[emailAtual];
 
-        areaInscricao.hidden = true;
+        if (areaInscricao) {
+            areaInscricao.hidden = true;
+        }
 
         // CANDIDATA JÁ APROVADA
 
         if (candidata.situacao === "aprovada") {
 
-            areaExperiencia.hidden = false;
-            areaConhecimento.hidden = true;
-            resultadoSelecao.hidden = true;
+            abrirQuizAfinidade();
 
         }
 
@@ -862,14 +1040,27 @@ if (elementoPergunta && elementoOpcoes) {
             candidata.proximaTentativa > Date.now()
         ) {
 
-            areaConhecimento.hidden = true;
-            areaExperiencia.hidden = true;
-            resultadoSelecao.hidden = false;
+            if (areaConhecimento) {
+                areaConhecimento.hidden = true;
+            }
 
-            tituloSelecao.textContent = "A Biblioteca aguarda seu retorno.";
+            if (areaExperiencia) {
+                areaExperiencia.hidden = true;
+            }
 
-            mensagemSelecao.textContent =
-                "Sua candidatura ainda está em período de espera.";
+            if (resultadoSelecao) {
+                resultadoSelecao.hidden = false;
+            }
+
+            if (tituloSelecao) {
+                tituloSelecao.textContent =
+                    "A Biblioteca aguarda seu retorno.";
+            }
+
+            if (mensagemSelecao) {
+                mensagemSelecao.textContent =
+                    "Sua candidatura ainda está em período de espera.";
+            }
 
             iniciarContagem();
 
@@ -884,5 +1075,4 @@ if (elementoPergunta && elementoOpcoes) {
         }
 
     });
-
 }
