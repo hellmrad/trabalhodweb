@@ -465,12 +465,284 @@ if (elementoPergunta && elementoOpcoes) {
 /* =================================
    INSCRIÇÃO DA BIBLIOTECÁRIA
 ================================= */
+/* =================================
+   INSCRIÇÃO E SELEÇÃO DA BIBLIOTECÁRIA
+================================= */
+
+// PERGUNTAS DE CONHECIMENTO
+
+const perguntasConhecimento = [
+    {
+        pergunta: "Qual é a principal função de um catálogo em uma biblioteca?",
+        opcoes: [
+            "Decorar as estantes.",
+            "Organizar e facilitar a localização dos livros.",
+            "Registrar apenas os livros mais antigos.",
+            "Escolher quais livros os visitantes podem ler."
+        ],
+        correta: 1
+    },
+    {
+        pergunta: "O que caracteriza uma narrativa de fantasia?",
+        opcoes: [
+            "A presença obrigatória de fatos históricos reais.",
+            "A ausência de conflitos entre personagens.",
+            "A presença de elementos mágicos ou sobrenaturais.",
+            "A utilização exclusiva de personagens reais."
+        ],
+        correta: 2
+    },
+    {
+        pergunta: "Em uma narrativa, o que é um protagonista?",
+        opcoes: [
+            "O personagem principal da história.",
+            "O autor do livro.",
+            "O personagem que aparece somente no final.",
+            "O narrador de qualquer história."
+        ],
+        correta: 0
+    },
+    {
+        pergunta: "Uma visitante procura uma história sobre reinos mágicos e dragões. Qual ala seria mais adequada?",
+        opcoes: [
+            "Ala das Cinzas.",
+            "Ala dos Dragões.",
+            "Gabinete dos Vilões.",
+            "Arquivos Preservados."
+        ],
+        correta: 1
+    },
+    {
+        pergunta: "Uma bibliotecária percebe que um livro está cadastrado com informações incorretas. O que deve fazer?",
+        opcoes: [
+            "Excluir o livro imediatamente.",
+            "Ignorar o erro.",
+            "Corrigir as informações e conferir os dados.",
+            "Alterar o título para algo mais interessante."
+        ],
+        correta: 2
+    }
+];
+
+
+// ELEMENTOS DO HTML
 
 const formularioInscricao = document.getElementById("form-inscricao");
-console.log("BLOCO DE INSCRIÇÃO CARREGADO!");
-console.log(formularioInscricao);
 const areaInscricao = document.getElementById("quiz-inscricao");
+const areaConhecimento = document.getElementById("quiz-conhecimento");
 const areaExperiencia = document.getElementById("quiz-experiencia");
+const resultadoSelecao = document.getElementById("resultado-selecao");
+
+const elementoConhecimentoProgresso =
+    document.getElementById("conhecimento-progresso");
+
+const elementoConhecimentoPergunta =
+    document.getElementById("conhecimento-pergunta");
+
+const elementoConhecimentoOpcoes =
+    document.getElementById("conhecimento-opcoes");
+
+const tituloSelecao = document.getElementById("selecao-titulo");
+const mensagemSelecao = document.getElementById("selecao-mensagem");
+const contadorEspera = document.getElementById("contador-espera");
+const botaoTentarNovamente = document.getElementById("tentar-novamente");
+
+
+// VARIÁVEIS DO DESAFIO
+
+let perguntaConhecimentoAtual = 0;
+let acertosConhecimento = 0;
+let emailAtual = "";
+let intervaloContagem = null;
+
+
+// RECUPERAR INSCRIÇÕES
+
+function recuperarInscricoes() {
+    try {
+        return JSON.parse(
+            localStorage.getItem("inscricoesBiblioteca")
+        ) || {};
+    } catch (erro) {
+        return {};
+    }
+}
+
+
+// INICIAR O DESAFIO
+
+function iniciarDesafio() {
+
+    perguntaConhecimentoAtual = 0;
+    acertosConhecimento = 0;
+
+    resultadoSelecao.hidden = true;
+    areaInscricao.hidden = true;
+    areaExperiencia.hidden = true;
+    areaConhecimento.hidden = false;
+
+    mostrarPerguntaConhecimento();
+}
+
+
+// MOSTRAR PERGUNTA
+
+function mostrarPerguntaConhecimento() {
+
+    const pergunta = perguntasConhecimento[perguntaConhecimentoAtual];
+
+    elementoConhecimentoProgresso.textContent =
+        `Pergunta ${perguntaConhecimentoAtual + 1} de ${perguntasConhecimento.length}`;
+
+    elementoConhecimentoPergunta.textContent = pergunta.pergunta;
+
+    elementoConhecimentoOpcoes.innerHTML = "";
+
+    pergunta.opcoes.forEach(function(opcao, indice) {
+
+        const botao = document.createElement("button");
+
+        botao.type = "button";
+        botao.classList.add("quiz-opcao");
+        botao.textContent = opcao;
+
+        botao.addEventListener("click", function() {
+
+            if (indice === pergunta.correta) {
+                acertosConhecimento++;
+            }
+
+            perguntaConhecimentoAtual++;
+
+            if (perguntaConhecimentoAtual < perguntasConhecimento.length) {
+                mostrarPerguntaConhecimento();
+            } else {
+                finalizarDesafio();
+            }
+
+        });
+
+        elementoConhecimentoOpcoes.appendChild(botao);
+
+    });
+
+}
+
+
+// FINALIZAR DESAFIO
+
+function finalizarDesafio() {
+
+    const inscricoes = recuperarInscricoes();
+    const candidata = inscricoes[emailAtual];
+
+    areaConhecimento.hidden = true;
+    resultadoSelecao.hidden = false;
+
+    if (acertosConhecimento >= 4) {
+
+        candidata.situacao = "aprovada";
+        candidata.acertos = acertosConhecimento;
+
+        localStorage.setItem(
+            "inscricoesBiblioteca",
+            JSON.stringify(inscricoes)
+        );
+
+        tituloSelecao.textContent = "A Biblioteca reconhece seu valor!";
+        mensagemSelecao.textContent =
+            `Você acertou ${acertosConhecimento} de 5 perguntas e foi aprovada. Sua jornada como bibliotecária começa agora!`;
+
+        contadorEspera.textContent = "";
+        botaoTentarNovamente.hidden = true;
+
+        // Abre o quiz de afinidade após a aprovação
+        resultadoSelecao.hidden = true;
+        areaExperiencia.hidden = false;
+
+    } else {
+
+        const duasHoras = 2 * 60 * 60 * 1000;
+
+        candidata.situacao = "aguardando";
+        candidata.acertos = acertosConhecimento;
+        candidata.proximaTentativa = Date.now() + duasHoras;
+
+        localStorage.setItem(
+            "inscricoesBiblioteca",
+            JSON.stringify(inscricoes)
+        );
+
+        tituloSelecao.textContent = "A Biblioteca ainda guarda seus segredos...";
+        mensagemSelecao.textContent =
+            `Você acertou ${acertosConhecimento} de 5 perguntas. Ainda não foi desta vez, mas uma nova oportunidade estará disponível em duas horas.`;
+
+        iniciarContagem();
+    }
+
+}
+
+
+// CONTADOR DE DUAS HORAS
+
+function iniciarContagem() {
+
+    clearInterval(intervaloContagem);
+
+    botaoTentarNovamente.hidden = true;
+
+    function atualizarContador() {
+
+        const inscricoes = recuperarInscricoes();
+        const candidata = inscricoes[emailAtual];
+
+        const restante = candidata.proximaTentativa - Date.now();
+
+        if (restante <= 0) {
+
+            clearInterval(intervaloContagem);
+
+            contadorEspera.textContent =
+                "O tempo de espera terminou. A Biblioteca está pronta para uma nova tentativa!";
+
+            botaoTentarNovamente.hidden = false;
+
+            return;
+        }
+
+        const horas = Math.floor(restante / 3600000);
+        const minutos = Math.floor((restante % 3600000) / 60000);
+        const segundos = Math.floor((restante % 60000) / 1000);
+
+        contadorEspera.textContent =
+            `Próxima tentativa em: ${String(horas).padStart(2, "0")}:${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
+    }
+
+    atualizarContador();
+
+    intervaloContagem = setInterval(atualizarContador, 1000);
+}
+
+
+// BOTÃO DE NOVA TENTATIVA
+
+botaoTentarNovamente.addEventListener("click", function() {
+
+    const inscricoes = recuperarInscricoes();
+
+    inscricoes[emailAtual].situacao = "em_andamento";
+
+    localStorage.setItem(
+        "inscricoesBiblioteca",
+        JSON.stringify(inscricoes)
+    );
+
+    iniciarDesafio();
+
+});
+
+
+// ENVIO DO E-MAIL
 
 if (formularioInscricao) {
 
@@ -478,38 +750,72 @@ if (formularioInscricao) {
 
         event.preventDefault();
 
-        const email = document.getElementById("email-candidata")
+        emailAtual = document.getElementById("email-candidata")
             .value.trim().toLowerCase();
 
-        let inscricoes = {};
+        const inscricoes = recuperarInscricoes();
 
-        try {
-            inscricoes = JSON.parse(
-                localStorage.getItem("inscricoesBiblioteca")
-            ) || {};
-        } catch (erro) {
-            inscricoes = {};
-        }
+        // PRIMEIRA INSCRIÇÃO
 
-        if (!inscricoes[email]) {
-            inscricoes[email] = {
-                email: email,
+        if (!inscricoes[emailAtual]) {
+
+            inscricoes[emailAtual] = {
+                email: emailAtual,
                 situacao: "em_andamento",
                 dataInscricao: new Date().toISOString(),
-                proximaTentativa: null,
-                livroRecomendado: null
+                proximaTentativa: null
             };
 
             localStorage.setItem(
                 "inscricoesBiblioteca",
                 JSON.stringify(inscricoes)
             );
+
         }
 
-        localStorage.setItem("emailCandidataAtual", email);
+        localStorage.setItem("emailCandidataAtual", emailAtual);
+
+        const candidata = inscricoes[emailAtual];
 
         areaInscricao.hidden = true;
-        areaExperiencia.hidden = false;
+
+        // CANDIDATA JÁ APROVADA
+
+        if (candidata.situacao === "aprovada") {
+
+            areaExperiencia.hidden = false;
+            areaConhecimento.hidden = true;
+            resultadoSelecao.hidden = true;
+
+        }
+
+        // CANDIDATA AINDA ESTÁ NO PERÍODO DE ESPERA
+
+        else if (
+            candidata.situacao === "aguardando" &&
+            candidata.proximaTentativa > Date.now()
+        ) {
+
+            areaConhecimento.hidden = true;
+            areaExperiencia.hidden = true;
+            resultadoSelecao.hidden = false;
+
+            tituloSelecao.textContent = "A Biblioteca aguarda seu retorno.";
+
+            mensagemSelecao.textContent =
+                "Sua candidatura ainda está em período de espera.";
+
+            iniciarContagem();
+
+        }
+
+        // CANDIDATA PODE COMEÇAR OU TENTAR NOVAMENTE
+
+        else {
+
+            iniciarDesafio();
+
+        }
 
     });
 
