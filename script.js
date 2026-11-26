@@ -555,6 +555,24 @@ let acertosConhecimento = 0;
 let emailAtual = "";
 let intervaloContagem = null;
 
+// MÚSICA DE SUSPENSE DA SELEÇÃO
+
+const musicaSuspense = new Audio("fundosuspense.mp3");
+
+musicaSuspense.loop = true;
+musicaSuspense.volume = 0.25;
+
+function iniciarMusicaSuspense() {
+    musicaSuspense.play().catch(function(erro) {
+        console.log("Não foi possível iniciar a música:", erro);
+    });
+}
+
+function pararMusicaSuspense() {
+    musicaSuspense.pause();
+    musicaSuspense.currentTime = 0;
+}
+
 
 // RECUPERAR INSCRIÇÕES
 
@@ -572,7 +590,8 @@ function recuperarInscricoes() {
 // INICIAR O DESAFIO
 
 function iniciarDesafio() {
-
+    
+    iniciarMusicaSuspense();
     perguntaConhecimentoAtual = 0;
     acertosConhecimento = 0;
 
@@ -633,6 +652,7 @@ function mostrarPerguntaConhecimento() {
 
 function finalizarDesafio() {
 
+      pararMusicaSuspense();
     const inscricoes = recuperarInscricoes();
     const candidata = inscricoes[emailAtual];
 
