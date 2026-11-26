@@ -963,13 +963,10 @@ h1, h2, h3, .botao {
 [hidden] {
     display: none !important;
 }
-
-/* BOTÃO VOLTAR AO TOPO */
-
 #voltar-topo {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 25px;
+    right: 25px;
 
     width: 48px;
     height: 48px;
@@ -989,7 +986,7 @@ h1, h2, h3, .botao {
     align-items: center;
     justify-content: center;
 
-    z-index: 999;
+    z-index: 999999;
 
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 
@@ -1005,7 +1002,6 @@ h1, h2, h3, .botao {
 #voltar-topo.visivel {
     display: flex;
 }
-
 html {
     scroll-behavior: smooth;
 }
