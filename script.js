@@ -491,7 +491,7 @@ function mostrarResultado() {
 
     document.getElementById("resultado-descricao").textContent =
         resultado.descricao;
-}
+
 
 const botaoReiniciarQuiz = document.getElementById("reiniciar-quiz");
 
