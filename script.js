@@ -462,3 +462,45 @@ document.getElementById("reiniciar-quiz").addEventListener("click", function () 
 if (elementoPergunta && elementoOpcoes) {
     mostrarPergunta();
 }
+
+unction mostrarResultado() {
+    elementoConteudo.hidden = true;
+    elementoResultado.hidden = false;
+
+    const alaEscolhida = Object.keys(pontuacaoQuiz).reduce(
+        (maior, ala) => {
+            return pontuacaoQuiz[ala] > pontuacaoQuiz[maior]
+                ? ala
+                : maior;
+        },
+        "cinzas"
+    );
+
+    const resultado = resultadosQuiz[alaEscolhida];
+
+    document.getElementById("resultado-ala").textContent =
+        resultado.nome;
+
+    document.getElementById("resultado-descricao").textContent =
+        resultado.descricao;
+}
+
+document.getElementById("reiniciar-quiz").addEventListener("click", function () {
+    perguntaAtual = 0;
+
+    pontuacaoQuiz = {
+        cinzas: 0,
+        dragoes: 0,
+        fadas: 0,
+        viloes: 0
+    };
+
+    elementoResultado.hidden = true;
+    elementoConteudo.hidden = false;
+
+    mostrarPergunta();
+});
+
+if (elementoPergunta && elementoOpcoes) {
+    mostrarPergunta();
+}
